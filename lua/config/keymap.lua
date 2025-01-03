@@ -35,6 +35,8 @@ map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 --  Most Language Servers support renaming across files, etc.
 map("<leader>cr", vim.lsp.buf.rename, "[Code] [R]ename")
 
+map("<leader>cf", vim.lsp.buf.format, "[Code] [F]ormat")
+
 -- Execute a code action, usually your cursor needs to be on top of an error
 -- or a suggestion from your LSP for this to activate.
 map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
@@ -46,3 +48,44 @@ map("K", vim.lsp.buf.hover, "Hover Documentation")
 -- WARN: This is not Goto Definition, this is Goto Declaration.
 --  For example, in C this would take you to the header.
 map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+
+vim.keymap.set({ 'n', 'o', 'v' }, 'gh', '0')
+vim.keymap.set({ 'n', 'o', 'v' }, 'gl', '$')
+vim.keymap.set({ 'n', 'o', 'v' }, 'ge', 'G$')
+vim.keymap.set({ 'n', 'o', 'v' }, 'gs', '^')
+
+vim.keymap.set('n', '<C-[>', '<cmd>tabprev<cr>')
+vim.keymap.set('n', '<C-]>', '<cmd>tabnext<cr>')
+
+vim.keymap.set('n', 'J', vim.diagnostic.open_float, {})
+
+vim.api.nvim_create_user_command('Notifications', function()
+	local history = require('snacks').notifier.get_history({})
+	local bufnr = vim.api.nvim_create_buf(false, true)
+	vim.api.nvim_buf_set_option(bufnr, 'number', false)
+	vim.api.nvim_buf_set_option(bufnr, 'relativenumber', false)
+	vim.opt_local.number = false
+	vim.opt_local.relativenumber = false
+
+	local winId = vim.api.nvim_open_win(bufnr, true, {
+		relative = 'win',
+		width = 120,
+		height = 10,
+		border = "single",
+		row = 20,
+		col = 20,
+		zindex = 100,
+	})
+
+	local content = {}
+	for _, value in ipairs(history) do
+		table.insert(content, '[' .. value.level .. '] ' .. value.msg)
+	end
+
+	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, content)
+	vim.keymap.set( 'n', 'q', function()
+		vim.api.nvim_buf_delete(bufnr, {force = true})
+	end,
+	{buffer = bufnr}
+	)
+end, {})

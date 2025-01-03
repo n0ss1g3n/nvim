@@ -20,6 +20,7 @@ return {
 		---@param plugin LazyPlugin
 		---@param opts any
 		---@return any
+		---@diagnostic disable-next-line: unused-local
 		opts = function(plugin, opts)
 			if opts == nil then
 				opts = {}
@@ -38,12 +39,14 @@ return {
 		end,
 	},
 	--- Will never load, just used to get phpstorm-stubs for phpactor lsp
+	{ "JetBrains/phpstorm-stubs", lazy = true },
 	{
 		"nvim-neotest/neotest",
 		lazy = true,
 		dependencies = {
 			"olimorris/neotest-phpunit",
 		},
+		config = true,
 		opts = function()
 			return {
 				adapters = { require("neotest-phpunit") },
@@ -52,6 +55,7 @@ return {
 	},
 	{
 		"nvim-treesitter/nvim-treesitter",
+		---@diagnostic disable-next-line: unused-local
 		opts = function(plugin, opts)
 			if opts == nil then
 				opts = {}

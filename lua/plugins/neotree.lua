@@ -4,6 +4,13 @@ return {
 	keys = {
 		{ "<leader>e", "<cmd>Neotree<cr>" },
 	},
+	opts = {
+		close_if_last_window = true,
+		window = {
+			mappings = {
+			}
+		},
+	},
 	dependencies = {
 		"nvim-lua/plenary.nvim",
 		"nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
