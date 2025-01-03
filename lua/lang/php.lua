@@ -37,6 +37,7 @@ return {
 			return opts
 		end,
 	},
+	--- Will never load, just used to get phpstorm-stubs for phpactor lsp
 	{
 		"nvim-neotest/neotest",
 		lazy = true,
