@@ -1,7 +1,7 @@
 nvim:
-  NVIM_APPNAME=restart nvim
+  nvim
 
 clean:
-	rm -rf ~/.local/share/restart/
-	rm -rf ~/.local/state/restart/ 
-	rm -rf ~/.cache/restart/
+	rm -rf ~/.local/share/nvim/
+	rm -rf ~/.local/state/nvim/ 
+	rm -rf ~/.cache/nvim/

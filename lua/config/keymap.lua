@@ -9,54 +9,72 @@ map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 -- Jump to the definition of the word under your cursor.
 --  This is where a variable was first declared, or where a function is defined, etc.
 --  To jump back, press <C-t>.
--- map("gd", require("telescope.builtin").lsp_definitions, "[G]oto [D]efinition")
+vim.keymap.set('n', "gd", function()
+	require("telescope.builtin").lsp_definitions()
+end, { desc = "[G]oto [D]efinition" })
 
 -- Find references for the word under your cursor.
--- map("<leader>fr", require("telescope.builtin").lsp_references, "[F]ind [R]eferences")
+vim.keymap.set('n', "<leader>gr", function()
+	require("telescope.builtin").lsp_references()
+end, { desc = "[F]ind [R]eferences" })
 
 -- Jump to the implementation of the word under your cursor.
 --  Useful when your language has ways of declaring types without an actual implementation.
--- map("<leader>fi", require("telescope.builtin").lsp_implementations, "[F]ind [I]mplementation")
+vim.keymap.set('n', "<leader>gi", function()
+	require("telescope.builtin").lsp_implementations()
+end, { desc = "[F]ind [I]mplementation" })
 
 -- Jump to the type of the word under your cursor.
 --  Useful when you're not sure what type a variable is and you want to see
 --  the definition of its *type*, not where it was *defined*.
--- map("<leader>cd", require("telescope.builtin").lsp_type_definitions, "[Code] [D]efinition")
+-- vim.keymap.set('n', "<leader>cd", require("telescope.builtin").lsp_type_definitions, { desc = "[Code] [D]efinition" })
 
 -- Fuzzy find all the symbols in your current document.
 --  Symbols are things like variables, functions, types, etc.
--- map("<leader>fs", require("telescope.builtin").lsp_document_symbols, "[F]ind [S]ymbols")
+vim.keymap.set('n', "<leader>fs", function()
+	require("telescope.builtin").lsp_document_symbols()
+end, { desc = "[F]ind [S]ymbols" })
 
 -- Fuzzy find all the symbols in your current workspace.
 --  Similar to document symbols, except searches over your entire project.
--- map("<leader>fS", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[F]ind Workspace [S]ymbols")
+vim.keymap.set('n', "<leader>fS", function() 
+	require("telescope.builtin").lsp_dynamic_workspace_symbols()
+end,
+	{ desc = "[F]ind Workspace [S]ymbols" })
+
+vim.keymap.set('n', "<leader>fb", '<cmd>Telescope buffers<cr>')
+
+
 
 -- Rename the variable under your cursor.
 --  Most Language Servers support renaming across files, etc.
-map("<leader>cr", vim.lsp.buf.rename, "[Code] [R]ename")
+vim.keymap.set('n', "<leader>cr", vim.lsp.buf.rename, { desc = "[Code] [R]ename" })
 
-map("<leader>cf", vim.lsp.buf.format, "[Code] [F]ormat")
+vim.keymap.set('n', "<leader>cf", vim.lsp.buf.format, { desc = "[Code] [F]ormat" })
 
 -- Execute a code action, usually your cursor needs to be on top of an error
 -- or a suggestion from your LSP for this to activate.
-map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
+vim.keymap.set('n', "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
 
 -- Opens a popup that displays documentation about the word under your cursor
 --  See `:help K` for why this keymap.
-map("K", vim.lsp.buf.hover, "Hover Documentation")
+vim.keymap.set('n', "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
 
 -- WARN: This is not Goto Definition, this is Goto Declaration.
 --  For example, in C this would take you to the header.
-map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+vim.keymap.set('n', "gD", vim.lsp.buf.declaration, { desc = "[G]oto [D]eclaration" })
 
 vim.keymap.set({ 'n', 'o', 'v' }, 'gh', '0')
 vim.keymap.set({ 'n', 'o', 'v' }, 'gl', '$')
 vim.keymap.set({ 'n', 'o', 'v' }, 'ge', 'G$')
 vim.keymap.set({ 'n', 'o', 'v' }, 'gs', '^')
 
-vim.keymap.set('n', '<C-[>', '<cmd>tabprev<cr>')
-vim.keymap.set('n', '<C-]>', '<cmd>tabnext<cr>')
+vim.keymap.set('n', '<leader>th', '<cmd>tabprev<cr>')
+vim.keymap.set('n', '<leader>tl', '<cmd>tabnext<cr>')
+vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<cr>')
+vim.keymap.set('n', '<leader>td', '<cmd>tabclose<cr>')
 
+vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>')
 vim.keymap.set('n', 'J', vim.diagnostic.open_float, {})
 
 vim.api.nvim_create_user_command('Notifications', function()
@@ -79,13 +97,14 @@ vim.api.nvim_create_user_command('Notifications', function()
 
 	local content = {}
 	for _, value in ipairs(history) do
-		table.insert(content, '[' .. value.level .. '] ' .. value.msg)
+		local message = string.replace('\n', '|', value.msg)
+		table.insert(content, '[' .. value.level .. '] ' .. message)
 	end
 
 	vim.api.nvim_buf_set_lines(bufnr, 0, -1, false, content)
-	vim.keymap.set( 'n', 'q', function()
-		vim.api.nvim_buf_delete(bufnr, {force = true})
-	end,
-	{buffer = bufnr}
+	vim.keymap.set('n', 'q', function()
+			vim.api.nvim_buf_delete(bufnr, { force = true })
+		end,
+		{ buffer = bufnr }
 	)
 end, {})

@@ -1,0 +1,9 @@
+{
+  "json-lsp": "4.10.0",
+  "lua-language-server": "3.13.5",
+  "php-cs-fixer": "v3.66.0",
+  "php-debug-adapter": "v1.35.0",
+  "phpactor": "2024.11.28.1",
+  "phpstan": "2.1.0",
+  "twig-cs-fixer": "3.5.0"
+}

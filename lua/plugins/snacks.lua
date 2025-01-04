@@ -5,7 +5,8 @@ return  {
 		},
     priority = 1000,
     lazy = false,
-    ---@type snacks.Config
+		--- @module 'snacks.init'
+    --- @type snacks.Config
     opts = {
       -- your configuration comes here
       -- or leave it empty to use the default settings
@@ -16,7 +17,7 @@ return  {
       input = { enabled = true },
       notifier = { enabled = true },
       quickfile = { enabled = true },
-      scroll = { enabled = true },
+      scroll = { enabled = false },
       statuscolumn = {
         enabled = true,
         left = { "mark", "sign" }, -- priority of signs on the left (high to low)
