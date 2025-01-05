@@ -9,15 +9,15 @@ return
 				view = {
 					style = "sign",
 					signs = { add = '┃', change = '┃', delete = '┃' },
-					mappings = {
-						apply = '<nop>',
-						reset = '<nop>',
-						textobejct = '<nop>',
-						goto_first = '<nop>',
-						goto_next = '<nop>',
-						goto_last = '<nop>'
-					}
 				},
+				mappings = {
+					apply = '',
+					reset = '',
+					textobejct = '',
+					goto_first = '',
+					goto_next = '',
+					goto_last = ''
+				}
 			})
 		end,
 	},
@@ -30,6 +30,10 @@ return
 			-- Only one of these is needed.
 			"nvim-telescope/telescope.nvim", -- optional
 		},
-		config = true
+		config = function()
+			require('neogit').setup({
+				graph_style = "unicode"
+			})
+		end
 	}
 }

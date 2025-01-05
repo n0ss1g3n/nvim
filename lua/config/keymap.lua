@@ -14,13 +14,13 @@ vim.keymap.set('n', "gd", function()
 end, { desc = "[G]oto [D]efinition" })
 
 -- Find references for the word under your cursor.
-vim.keymap.set('n', "<leader>gr", function()
+vim.keymap.set('n', "gr", function()
 	require("telescope.builtin").lsp_references()
 end, { desc = "[F]ind [R]eferences" })
 
 -- Jump to the implementation of the word under your cursor.
 --  Useful when your language has ways of declaring types without an actual implementation.
-vim.keymap.set('n', "<leader>gi", function()
+vim.keymap.set('n', "gi", function()
 	require("telescope.builtin").lsp_implementations()
 end, { desc = "[F]ind [I]mplementation" })
 
@@ -35,11 +35,15 @@ vim.keymap.set('n', "<leader>fs", function()
 	require("telescope.builtin").lsp_document_symbols()
 end, { desc = "[F]ind [S]ymbols" })
 
+vim.keymap.set('n', '<leader>ff', "<cmd>Telescope find_files<cr>")
+vim.keymap.set('n', '<leader>fw', "<cmd>Telescope live_grep<cr>")
+
+vim.keymap.set('n', "<leader>ps", "<cmd>Telescope project hide_workspace=true display_type=full<cr>")
 -- Fuzzy find all the symbols in your current workspace.
 --  Similar to document symbols, except searches over your entire project.
-vim.keymap.set('n', "<leader>fS", function() 
-	require("telescope.builtin").lsp_dynamic_workspace_symbols()
-end,
+vim.keymap.set('n', "<leader>fS", function()
+		require("telescope.builtin").lsp_dynamic_workspace_symbols()
+	end,
 	{ desc = "[F]ind Workspace [S]ymbols" })
 
 vim.keymap.set('n', "<leader>fb", '<cmd>Telescope buffers<cr>')
@@ -73,6 +77,15 @@ vim.keymap.set('n', '<leader>th', '<cmd>tabprev<cr>')
 vim.keymap.set('n', '<leader>tl', '<cmd>tabnext<cr>')
 vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<cr>')
 vim.keymap.set('n', '<leader>td', '<cmd>tabclose<cr>')
+vim.keymap.set('n', '<leader>ts', '<cmd>Telescope telescope-tabs list_tabs<CR>')
+vim.keymap.set('n', '<leader>tr', function()
+	vim.ui.input({
+		prompt = "Tab name",
+		default = require('tabby.feature.tab_name').get(0),
+	}, function(value)
+		vim.cmd("TabRename " .. value)
+	end)
+end)
 
 vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>')
 vim.keymap.set('n', 'J', vim.diagnostic.open_float, {})

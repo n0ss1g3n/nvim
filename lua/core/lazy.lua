@@ -15,11 +15,27 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 require("lazy").setup({
-	defaults = {
-		lazy = false,
-	},
-	checker = { enabled = true, frequency = 60 * 60 * 24 * 7 }, -- automatically check for plugin updates every week
 	{ import = "lang" },
 	{ import = "plugins" },
 	{ import = "core.plugins" },
+	{ 'buffer-types', dev = true, lazy = false, config = true },
+}, {
+
+	checker = { enabled = true, frequency = 60 * 60 * 24 * 7 }, -- automatically check for plugin updates every week
+	defaults = {
+		lazy = false,
+	},
+	change_detection = {
+		enabled = false -- This is just noisy
+	},
+	dev = {
+		path = vim.fn.stdpath('config') .. '/develop',
+	},
+	performance = {
+		cache = {
+			enabled = false
+		}
+	}
 })
+
+vim.notify(vim.fn.stdpath('config') .. '/develop')

@@ -47,6 +47,7 @@ return {
 					local capabilities = vim.lsp.protocol.make_client_capabilities()
 					if server_name == 'phpactor' then
 						lspconfig.phpactor.setup({
+							capabilities = capabilities,
 							init_options = {
 								['language_server_completion.trim_leading_dollar'] = true,
 								['worse_reflection.stub_dir'] = vim.fn.stdpath("data") .. "/lazy/phpstorm-stubs"
@@ -80,7 +81,9 @@ return {
 							},
 						})
 					else
-						lspconfig[server_name].setup({})
+						lspconfig[server_name].setup({
+							capabilities = capabilities,
+						})
 					end
 				end,
 			})

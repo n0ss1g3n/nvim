@@ -53,20 +53,20 @@ return {
 			}
 		end,
 	},
-	{
-		"nvim-treesitter/nvim-treesitter",
-		---@diagnostic disable-next-line: unused-local
-		opts = function(plugin, opts)
-			if opts == nil then
-				opts = {}
-			end
-
-			if opts.ensure_installed == nil then
-				opts.ensure_installed = {}
-			end
-
-			table.insert(opts.ensure_installed, lang.treesitter.name)
-			return opts
-		end,
-	},
+	-- {
+	-- 	"nvim-treesitter/nvim-treesitter",
+	-- 	---@diagnostic disable-next-line: unused-local
+	-- 	opts = function(plugin, opts)
+	-- 		if opts == nil then
+	-- 			opts = {}
+	-- 		end
+	--
+	-- 		if opts.ensure_installed == nil then
+	-- 			opts.ensure_installed = {}
+	-- 		end
+	--
+	-- 		table.insert(opts.ensure_installed, lang.treesitter.name)
+	-- 		return opts
+	-- 	end,
+	-- },
 }
