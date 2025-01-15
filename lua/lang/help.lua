@@ -1,14 +1,9 @@
 return {
-	-- https://github.com/OXY2DEV/helpview.nvim
-	{
+	ctrl.plugin.build_definition({
 		"OXY2DEV/helpview.nvim",
-		lazy = false, -- Recommended
-
-		-- In case you still want to lazy load
-		-- ft = "help",
-
+		lazy = false,
 		dependencies = {
 			"nvim-treesitter/nvim-treesitter"
 		}
-	},
+	})
 }

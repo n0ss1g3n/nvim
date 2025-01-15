@@ -23,28 +23,27 @@ local autocmds = {
         { "BufWritePost", "plugins.lua", "PackerCompile" };
     };
     terminal_job = {
-        { "TermOpen", "*", [[tnoremap <buffer> <Esc> <c-\><c-n>]] };
         { "TermOpen", "*", "startinsert" };
         { "TermOpen", "*", "setlocal listchars= nonumber norelativenumber" };
     };
-    restore_cursor = {
-        { 'BufRead', '*', [[call setpos(".", getpos("'\""))]] };
-    };
-    save_shada = {
-        {"VimLeave", "*", "wshada!"};
-    };
-    resize_windows_proportionally = {
-        { "VimResized", "*", ":wincmd =" };
-    };
+    -- restore_cursor = {
+    --     { 'BufRead', '*', [[call setpos(".", getpos("'\""))]] };
+    -- };
+    -- save_shada = {
+    --     {"VimLeave", "*", "wshada!"};
+    -- };
+    -- resize_windows_proportionally = {
+    --     { "VimResized", "*", ":wincmd =" };
+    -- };
     toggle_search_highlighting = {
         { "InsertEnter", "*", "setlocal nohlsearch" };
     };
     lua_highlight = {
         { "TextYankPost", "*", [[silent! lua vim.highlight.on_yank() {higroup="IncSearch", timeout=400}]] };
     };
-    ansi_esc_log = {
-        { "BufEnter", "*.log", ":AnsiEsc" };
-    };
+    -- ansi_esc_log = {
+    --     { "BufEnter", "*.log", ":AnsiEsc" };
+    -- };
 }
 
 nvim_create_augroups(autocmds)

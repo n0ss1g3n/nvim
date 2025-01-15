@@ -38,4 +38,4 @@ require("lazy").setup({
 	}
 })
 
-vim.notify(vim.fn.stdpath('config') .. '/develop')
+-- vim.notify(vim.fn.stdpath('config') .. '/develop')

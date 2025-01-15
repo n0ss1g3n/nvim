@@ -7,6 +7,7 @@ local lang = {
 		"phpstan",
 		"php-cs-fixer",
 		"php-debug-adapter",
+		"marksman"
 	},
 }
 
@@ -16,7 +17,7 @@ return {
 		dependencies = {
 			"ctrl-nvim/mason.nvim",
 		},
-		--- 
+		---
 		---@param plugin LazyPlugin
 		---@param opts any
 		---@return any
@@ -42,14 +43,24 @@ return {
 	{ "JetBrains/phpstorm-stubs", lazy = true },
 	{
 		"nvim-neotest/neotest",
-		lazy = true,
+		lazy = false,
 		dependencies = {
+			"nvim-neotest/nvim-nio",
+			"nvim-lua/plenary.nvim",
+			"antoinemadec/FixCursorHold.nvim",
+			"nvim-treesitter/nvim-treesitter",
 			"olimorris/neotest-phpunit",
 		},
-		config = true,
-		opts = function()
-			return {
-				adapters = { require("neotest-phpunit") },
+		config = function()
+			require('neotest').setup {
+				adapters = {
+					require("neotest-phpunit")({
+						phpunit_cmd = function()
+							return "docker compose exec app php vendor/bin/phpunit"
+						end
+					})
+
+				},
 			}
 		end,
 	},

@@ -49,6 +49,7 @@ return {
 		end
 
 	},
+	--https://github.com/nvim-telescope/telescope-project.nvim 
 	'nvim-telescope/telescope-project.nvim',
 	'nvim-telescope/telescope-ui-select.nvim',
 	{

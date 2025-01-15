@@ -6,7 +6,6 @@ return {
 			require("catppuccin").setup({
 				flavour = 'mocha',
 				no_italic = true,
-
 				term_colors = true, -- sets terminal colors (e.g. `g:terminal_color_0`)
 				styles = {
 					comments = {},

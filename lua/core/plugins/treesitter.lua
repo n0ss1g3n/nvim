@@ -12,6 +12,12 @@ return {
 					enable = true,
 					additional_vim_regex_highlighting = false
 				},
+				folding = {
+					enable = true
+				},
+				indent = {
+					enable = true
+				}
 			}
 		)
 	end

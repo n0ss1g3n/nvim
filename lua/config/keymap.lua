@@ -48,13 +48,11 @@ vim.keymap.set('n', "<leader>fS", function()
 
 vim.keymap.set('n', "<leader>fb", '<cmd>Telescope buffers<cr>')
 
+vim.keymap.set('n', '<leader>\\', '<cmd>Neotree focus<cr>')
 
-
--- Rename the variable under your cursor.
---  Most Language Servers support renaming across files, etc.
-vim.keymap.set('n', "<leader>cr", vim.lsp.buf.rename, { desc = "[Code] [R]ename" })
-
-vim.keymap.set('n', "<leader>cf", vim.lsp.buf.format, { desc = "[Code] [F]ormat" })
+vim.keymap.set('n', '<leader>gd', '<cmd>DiffviewOpen --selected-file<cr>')
+vim.keymap.set('n', '<leader>gc', '<cmd>Neogit commit<cr>')
+vim.keymap.set('n', '<leader>gh', '<cmd>DiffviewFileHistory %<cr>')
 
 -- Execute a code action, usually your cursor needs to be on top of an error
 -- or a suggestion from your LSP for this to activate.
@@ -78,7 +76,19 @@ vim.keymap.set('n', '<leader>tl', '<cmd>tabnext<cr>')
 vim.keymap.set('n', '<leader>tn', '<cmd>tabnew<cr>')
 vim.keymap.set('n', '<leader>td', '<cmd>tabclose<cr>')
 vim.keymap.set('n', '<leader>ts', '<cmd>Telescope telescope-tabs list_tabs<CR>')
+vim.keymap.set('n', '<leader>tt', function()
+	vim.cmd('tabnew')
+	vim.cmd("TabRename term")
+	vim.cmd('term')
+end)
+
 vim.keymap.set('n', '<leader>tr', function()
+	local current_tab_name =require('tabby.feature.tab_name').get(0) 
+
+	if (current_tab_name == "[No Name]") then
+		current_tab_name = ''
+	end
+
 	vim.ui.input({
 		prompt = "Tab name",
 		default = require('tabby.feature.tab_name').get(0),
@@ -87,14 +97,23 @@ vim.keymap.set('n', '<leader>tr', function()
 	end)
 end)
 
-vim.keymap.set('t', '<Esc><Esc>', '<C-\\><C-n>')
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>')
 vim.keymap.set('n', 'J', vim.diagnostic.open_float, {})
+
+vim.keymap.set('n', '<C-c>', 'gcc')
+vim.keymap.set('v', '<C-c>', 'gc')
 
 vim.api.nvim_create_user_command('Notifications', function()
 	local history = require('snacks').notifier.get_history({})
 	local bufnr = vim.api.nvim_create_buf(false, true)
-	vim.api.nvim_buf_set_option(bufnr, 'number', false)
-	vim.api.nvim_buf_set_option(bufnr, 'relativenumber', false)
+	vim.api.nvim_set_option_value('number', false, {
+		scope = 'local',
+		buf = bufnr
+	})
+	vim.api.nvim_set_option_value('relativenumber', false, {
+		scope = 'local',
+		buf = bufnr
+	})
 	vim.opt_local.number = false
 	vim.opt_local.relativenumber = false
 

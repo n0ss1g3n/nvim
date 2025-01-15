@@ -44,13 +44,14 @@ return {
 				["<C-p>"] = { "select_prev", "fallback" },
 				["<C-n>"] = { "select_next", "fallback" },
 				["<cr>"] = { "accept", "fallback" },
-				cmdline = {
-					preset = "none",
-					["<C-y>"] = { "accept", "fallback" },
-					["<C-space>"] = { "show", "fallback" },
-					["<C-p>"] = { "select_prev", "fallback" },
-					["<C-n>"] = { "select_next", "fallback" },
-				},
+				cmdline = {},
+				-- cmdline = {
+				-- 	preset = "none",
+				-- 	["<C-y>"] = { "accept", "fallback" },
+				-- 	["<C-space>"] = { "show", "fallback" },
+				-- 	["<C-p>"] = { "select_prev", "fallback" },
+				-- 	["<C-n>"] = { "select_next", "fallback" },
+				-- },
 			},
 
 			appearance = {
