@@ -20,6 +20,13 @@ function ctrl.event.on(name, callback)
 	})
 end
 
+function ctrl.event.on_tcd(callback)
+	vim.api.nvim_create_autocmd("DirChanged", {
+		pattern = "tabpage",
+		callback = callback,
+	})
+end
+
 function ctrl.event.define(name)
 	--- TODO Definir un state
 end

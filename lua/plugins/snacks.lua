@@ -44,5 +44,6 @@ return {
 			right = { "fold", "git" }, -- priority of signs on the right (high to low)
 		},
 		words = { enabled = true },
+		image = {}
 	},
 }
